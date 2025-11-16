@@ -44,9 +44,15 @@ int main(){
         Sleep(2000);
     keluar("Cause you said forever, now I drive alone past your street\n", 20);\
         Sleep(2000);
+
+    keluar("And all my friends\n", 40);
+        Sleep(1500);
+    keluar("of hearing how much I miss you, but\n", 40);
+        Sleep(1500);
 return 0;
 
 }
+
 
 
 
