@@ -283,8 +283,7 @@ void kembalikanAlat() {
 
     printf("Masukkan ID alat yang ingin dikembalikan: ");
     scanf("%u", &id);
-    printf("jumlah alat yang ingin dikembalikan:");
-    scanf("%u", &jumlah);
+    
 
     // Kembalikan ke stok alat
     while (fscanf(alatFile, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
@@ -292,8 +291,6 @@ void kembalikanAlat() {
         if (alat.id == id) {
             found = 1;
             alat.jumlah-jumlah;
-        }else if(alat.jumlah = 0){
-            printf("alat yang kamu pinjam sudah dikembalikan");
         }
         fprintf(tempAlat, "%u, %s, %s, %s, %u, %u\n",
             alat.id, alat.nama, alat.merek, alat.model, alat.tahun, alat.jumlah);
@@ -319,4 +316,5 @@ void kembalikanAlat() {
 
     if (found) printf("Alat berhasil dikembalikan!\n");
     else printf("Data alat tidak ditemukan di daftar pinjaman!\n");
+
 }
