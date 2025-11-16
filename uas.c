@@ -122,7 +122,7 @@ void menuUser() {
     } while (pilih != 0);
 }
 
-// --- LIHAT ALAT ---
+// --- LIHAT ALAT 
 void lihatAlat() {
     FILE *fp = fopen("alat.txt", "r");
     if (!fp) {
@@ -318,3 +318,4 @@ void kembalikanAlat() {
     else printf("Data alat tidak ditemukan di daftar pinjaman!\n");
 
 }
+
