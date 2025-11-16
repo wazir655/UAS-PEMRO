@@ -22,6 +22,19 @@ int main(){
         Sleep(2000);
     keluar("Cryin 'cause you weren't around\n", 20);\
         Sleep(2000);
+    keluar("And you're probably with that blonde girl\n",90);
+        Sleep(1500);
+    keluar("Who always made me doubt\n",40);
+        Sleep(3000);
+    keluar("She's so much older than me\n", 20);\
+        Sleep(2000);
+    keluar("She's everything I'm insecure about\n", 20);\
+        Sleep(2000);
+    keluar("Yeah, today I drove through the suburbs\n", 20);\
+        Sleep(2000);
+    keluar("'Cause how could I ever love someone else?\n", 20);\
+        Sleep(2000);
 return 0;
 
 }
+
