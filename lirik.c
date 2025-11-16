@@ -50,16 +50,17 @@ int main(){
     keluar("of hearing how much I miss you, but\n", 40);
         Sleep(1500);
     keluar("I kinda feel sorry for them\n", 40);
-        Sleep();
+        Sleep(1200);
     keluar("Cause they'll never know you the way that I do, yeah\n", 40);
-        Sleep();
+        Sleep(1300);
     keluar("Today I drove thrugh the suburbs\n,", 70);
-        Sleep();
+        Sleep(1300);
     keluar("And pictured I was driving home to you\n", 75);
-        Sleep();
+        Sleep(1500);
 return 0;
 
 }
+
 
 
 
