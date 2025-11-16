@@ -45,21 +45,22 @@ int main(){
     keluar("Cause you said forever, now I drive alone past your street\n", 20);\
         Sleep(2000);
 
-    keluar("And all my friends\n", 40);
+    keluar("And all my friends\n", 75);
+        Sleep(1400);
+    keluar("of hearing how much I miss you, but\n", 70);
         Sleep(1500);
-    keluar("of hearing how much I miss you, but\n", 40);
-        Sleep(1500);
-    keluar("I kinda feel sorry for them\n", 40);
-        Sleep(1200);
-    keluar("Cause they'll never know you the way that I do, yeah\n", 40);
-        Sleep(1300);
+    keluar("I kinda feel sorry for them\n", 70);
+        Sleep(1400);
+    keluar("Cause they'll never know you the way that I do, yeah\n", 65);
+        Sleep(2000);
     keluar("Today I drove thrugh the suburbs\n,", 70);
-        Sleep(1300);
+        Sleep(1700);
     keluar("And pictured I was driving home to you\n", 75);
-        Sleep(1500);
+        Sleep(3000);
 return 0;
 
 }
+
 
 
 
