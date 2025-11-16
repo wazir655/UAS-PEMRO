@@ -10,18 +10,18 @@ void keluar(const char *teks, int delay){
 }
 
 int main(){
-    keluar("I got my driver's license last week\n",75);
-        Sleep(300);
-    keluar("just like we always talked about\n",80);
-        Sleep(500);
-    keluar("'cause you we're so excited for me\n", 90);
-        Sleep(500);
-    keluar("To finally drive up to your house\n", 90);\
-        Sleep(500);
-    keluar("But today i drove through the surbubs\n", 80);\
-        Sleep(500);
-    keluar("Cryin 'cause you weren't around\n", 80);\
-        Sleep(500);
+    keluar("I got my driver's license last week\n",70);
+        Sleep(200);
+    keluar("just like we always talked about\n",65);
+        Sleep(800);
+    keluar("'cause you we're so excited for me\n", 55);
+        Sleep(600);
+    keluar("To finally drive up to your house\n", 50);\
+        Sleep(600);
+    keluar("But today i drove through the surbubs\n", 50);\
+        Sleep(700);
+    keluar("Cryin 'cause you weren't around\n", 65);\
+        Sleep(4000);
     
     keluar("And you're probably with that blonde girl\n",90);
         Sleep(1500);
@@ -47,6 +47,7 @@ int main(){
 return 0;
 
 }
+
 
 
 
