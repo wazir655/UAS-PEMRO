@@ -36,17 +36,18 @@ int main(){
     keluar("'Cause how could I ever love someone else?\n", 20);\
         Sleep(2000);
     
-    keluar("And I know we weren't perfect but I've never felt this way for no one\n",80);
+    keluar("And I know we weren't perfect but I've never felt this way for no one\n",20);
         Sleep(2000);
-    keluar("And I just can't imagine how you could be so okay now that I'm gone\n",55);
-        Sleep(2500);
-    keluar("Guess you didn't mean what you wrote in that song about me", 30);\
+    keluar("And I just can't imagine how you could be so okay now that I'm gone\n",20);
         Sleep(2000);
-    keluar("Cause you said forever, now I drive alone past your street\n", 30);\
+    keluar("Guess you didn't mean what you wrote in that song about me", 20);\
+        Sleep(2000);
+    keluar("Cause you said forever, now I drive alone past your street\n", 20);\
         Sleep(2000);
 return 0;
 
 }
+
 
 
 
