@@ -4,7 +4,7 @@
 
 #define MAX 100
 
-// Struktur data alat laboratorium
+// Struktur data alat laboratorium //
 typedef struct {
     unsigned int id;
     char nama[50];
@@ -14,7 +14,7 @@ typedef struct {
     unsigned int jumlah;
 } Alat;
 
-// Struktur data akun
+// Struktur data akun //
 typedef struct {
     char username[50];
     char password[50];
@@ -23,7 +23,7 @@ typedef struct {
 
 Akun loginUser;
 
-// --- Fungsi Prototipe ---
+// --- Fungsi Prototipe --- //
 int login();
 void menuAdmin();
 void menuUser();
@@ -35,7 +35,7 @@ void pinjamAlat();
 void lihatPinjaman();
 void kembalikanAlat();
 
-// --- FUNGSI UTAMA ---
+// --- FUNGSI UTAMA --- //
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Cara penggunaan: %s <username> <password>\n", argv[0]);
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-// --- LOGIN ---
+// --- LOGIN --- //
 int login() {
     FILE *fp = fopen("akun.txt", "r");
     if (!fp) {
@@ -78,7 +78,7 @@ int login() {
     return 0;
 }
 
-// --- MENU ADMIN ---
+// --- MENU ADMIN --- //
 void menuAdmin() {
     int pilih;
     do {
@@ -100,7 +100,7 @@ void menuAdmin() {
     } while (pilih != 0);
 }
 
-// --- MENU USER ---
+// --- MENU USER --- //
 void menuUser() {
     int pilih;
     do {
@@ -122,7 +122,7 @@ void menuUser() {
     } while (pilih != 0);
 }
 
-// --- LIHAT ALAT 
+// --- LIHAT ALAT --- //
 void lihatAlat() {
     FILE *fp = fopen("alat.txt", "r");
     if (!fp) {
@@ -140,7 +140,7 @@ void lihatAlat() {
     fclose(fp);
 }
 
-// --- TAMBAH ALAT ---
+// --- TAMBAH ALAT --- //
 void tambahAlat() {
     FILE *fp = fopen("alat.txt", "a");
     Alat a;
@@ -156,7 +156,7 @@ void tambahAlat() {
     printf("Data alat berhasil ditambahkan!\n");
 }
 
-// --- EDIT ALAT ---
+// --- EDIT ALAT --- //
 void editAlat() {
     FILE *fp = fopen("alat.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
@@ -188,7 +188,7 @@ void editAlat() {
     else printf("ID alat tidak ditemukan!\n");
 }
 
-// --- HAPUS ALAT ---
+// --- HAPUS ALAT --- //
 void hapusAlat() {
     FILE *fp = fopen("alat.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
@@ -214,7 +214,7 @@ void hapusAlat() {
     else printf("ID alat tidak ditemukan!\n");
 }
 
-// --- PINJAM ALAT ---
+// --- PINJAM ALAT --- //
 void pinjamAlat() {
     unsigned int id, jumlah;
     FILE *fp = fopen("alat.txt", "r");
@@ -246,7 +246,7 @@ void pinjamAlat() {
     else printf("Alat tidak tersedia atau jumlah tidak cukup!\n");
 }
 
-// --- LIHAT PINJAMAN USER ---
+// --- LIHAT PINJAMAN USER --- //
 void lihatPinjaman() {
     FILE *fp = fopen("pinjam.txt", "r");
     if (!fp) {
@@ -270,7 +270,7 @@ void lihatPinjaman() {
     fclose(fp);
 }
 
-// --- KEMBALIKAN ALAT ---
+// --- KEMBALIKAN ALAT --- //
 void kembalikanAlat() {
     FILE *fp = fopen("pinjam.txt", "r");
     FILE *tempPinjam = fopen("temp_pinjam.txt", "w");
@@ -285,7 +285,7 @@ void kembalikanAlat() {
     scanf("%u", &id);
     
 
-    // Kembalikan ke stok alat
+    // Kembalikan ke stok alat //
     while (fscanf(alatFile, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         &alat.id, alat.nama, alat.merek, alat.model, &alat.tahun, &alat.jumlah) != EOF) {
         if (alat.id == id) {
@@ -296,7 +296,7 @@ void kembalikanAlat() {
             alat.id, alat.nama, alat.merek, alat.model, alat.tahun, alat.jumlah);
     }
 
-    // Hapus dari daftar pinjaman
+    // Hapus dari daftar pinjaman //
     while (fscanf(fp, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlah) != EOF) {
         if (!(strcmp(uname, loginUser.username) == 0 && a.id == id))
@@ -318,4 +318,5 @@ void kembalikanAlat() {
     else printf("Data alat tidak ditemukan di daftar pinjaman!\n");
 
 }
+
 
