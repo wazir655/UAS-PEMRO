@@ -6,21 +6,19 @@
 #define MAX_WORDS 5000
 #define MAX_LEN 100
 
-// Fungsi untuk membersihkan kata dari tanda baca (selain apostrof)
 void bersihkanKata(char *word) {
     char temp[MAX_LEN];
     int j = 0;
 
     for (int i = 0; word[i] != '\0'; i++) {
         if (isalnum(word[i]) || word[i] == '\'') {
-            temp[j++] = tolower(word[i]);  // lowercase
+            temp[j++] = tolower(word[i]); 
         }
     }
     temp[j] = '\0';
     strcpy(word, temp);
 }
 
-// Mengecek apakah kata sudah ada sebelumnya
 int sudahAda(char arr[][MAX_LEN], int count, char *word) {
     for (int i = 0; i < count; i++) {
         if (strcmp(arr[i], word) == 0)
@@ -39,16 +37,15 @@ int main() {
     }
 
     char judul[200];
-    fgets(judul, sizeof(judul), in);   // baca judul
+    fgets(judul, sizeof(judul), in);   
 
-    fprintf(out, "%s", judul);         // tulis judul ke output
+    fprintf(out, "%s", judul);         
 
     char kata[MAX_WORDS][MAX_LEN];
     int jumlahKata = 0;
 
     char buffer[MAX_LEN];
 
-    // Membaca semua kata dalam file
     while (fscanf(in, "%s", buffer) != EOF) {
         bersihkanKata(buffer);
 
@@ -60,7 +57,6 @@ int main() {
         }
     }
 
-    // Tulis semua kosa kata ke file output
     for (int i = 0; i < jumlahKata; i++) {
         fprintf(out, "%s=\n", kata[i]);
     }
