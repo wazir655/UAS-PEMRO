@@ -23,7 +23,7 @@ typedef struct {
 
 Akun loginUser;
 
-// --- Fungsi Prototipe ---
+// --- Fungsi Prototipe
 int login();
 void menuAdmin();
 void menuUser();
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-// --- LOGIN ---
+// --- LOGIN
 int login() {
     FILE *fp = fopen("akun.txt", "r");
     if (!fp) {
@@ -370,4 +370,5 @@ void kembalikanAlat() {
 
     printf("Pengembalian berhasil! Sisa pinjaman Anda diperbarui.\n");
 }
+
 
