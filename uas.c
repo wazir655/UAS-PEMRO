@@ -382,17 +382,5 @@ void kembalikanAlat() {
         }
     }
 
-    fclose(pinjam);
-    fclose(alatFile);
-    fclose(tempPinjam);
-    fclose(tempAlat);
-
-    remove("pinjam.txt");
-    rename("temp_pinjam.txt", "pinjam.txt");
-
-    remove("alat.txt");
-    rename("temp_alat.txt", "alat.txt");
-
-    printf("Pengembalian berhasil! Sisa pinjaman Anda diperbarui.\n");
-}
+   
 
