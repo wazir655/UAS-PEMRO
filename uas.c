@@ -143,18 +143,43 @@ void lihatAlat() {
 // --- TAMBAH ALAT ---
 void tambahAlat() {
     FILE *fp = fopen("alat.txt", "a");
-    Alat a;
-    printf("Masukkan ID Alat: "); scanf("%u", &a.id);
-    printf("Nama: "); scanf(" %[^\n]", a.nama);
-    printf("Merek: "); scanf(" %[^\n]", a.merek);
-    printf("Model: "); scanf(" %[^\n]", a.model);
-    printf("Tahun Produksi: "); scanf("%u", &a.tahun);
-    printf("Jumlah Unit: "); scanf("%u", &a.jumlah);
+    if (!fp) {
+        printf("Gagal membuka file alat.txt!\n");
+        return;
+    }
 
-    fprintf(fp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+    Alat a;
+
+    printf("Masukkan ID Alat: ");
+    scanf("%u", &a.id);
+    getchar();  // buang newline
+
+    printf("Nama: ");
+    fgets(a.nama, sizeof(a.nama), stdin);
+    a.nama[strcspn(a.nama, "\n")] = 0;
+
+    printf("Merek: ");
+    fgets(a.merek, sizeof(a.merek), stdin);
+    a.merek[strcspn(a.merek, "\n")] = 0;
+
+    printf("Model: ");
+    fgets(a.model, sizeof(a.model), stdin);
+    a.model[strcspn(a.model, "\n")] = 0;
+
+    printf("Tahun Produksi: ");
+    scanf("%u", &a.tahun);
+
+    printf("Jumlah Unit: ");
+    scanf("%u", &a.jumlah);
+
+    // Format disamakan dengan fscanf
+    fprintf(fp, "%u, %s, %s, %s, %u, %u\n",
+            a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+
     fclose(fp);
     printf("Data alat berhasil ditambahkan!\n");
 }
+
 
 // --- EDIT ALAT ---
 void editAlat() {
@@ -370,5 +395,4 @@ void kembalikanAlat() {
 
     printf("Pengembalian berhasil! Sisa pinjaman Anda diperbarui.\n");
 }
-
 
