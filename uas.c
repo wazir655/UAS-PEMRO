@@ -169,3 +169,36 @@ void tambahAlat() {
     fclose(fp);
     printf("Data alat berhasil ditambahkan!\n");
 }
+
+void editAlat() {
+    FILE *fp = fopen("alat.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+    Alat a;
+    unsigned int id;
+    int found = 0;
+
+    printf("Masukkan ID alat yang ingin diedit: ");
+    scanf("%u", &id);
+
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
+        if (a.id == id) {
+            found = 1;
+            printf("Edit nama alat: "); scanf(" %[^\n]", a.nama);
+            printf("Edit merek: "); scanf(" %[^\n]", a.merek);
+            printf("Edit model: "); scanf(" %[^\n]", a.model);
+            printf("Edit tahun: "); scanf("%u", &a.tahun);
+            printf("Edit jumlah: "); scanf("%u", &a.jumlah);
+        }
+        fprintf(temp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+    }
+    fclose(fp);
+    fclose(temp);
+    remove("alat.txt");
+    rename("temp.txt", "alat.txt");
+
+    if (found) printf("Data alat berhasil diedit!\n");
+    else printf("ID alat tidak ditemukan!\n");
+}
+
+
