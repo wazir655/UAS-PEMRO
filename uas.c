@@ -4,7 +4,6 @@
 
 #define MAX 100
 
-// Struktur data alat laboratorium
 typedef struct {
     unsigned int id;
     char nama[50];
@@ -14,7 +13,6 @@ typedef struct {
     unsigned int jumlah;
 } Alat;
 
-// Struktur data akun
 typedef struct {
     char username[50];
     char password[50];
@@ -23,7 +21,6 @@ typedef struct {
 
 Akun loginUser;
 
-// --- Fungsi Prototipe
 int login();
 void menuAdmin();
 void menuUser();
@@ -35,7 +32,6 @@ void pinjamAlat();
 void lihatPinjaman();
 void kembalikanAlat();
 
-// --- FUNGSI UTAMA ---
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Cara penggunaan: %s <username> <password>\n", argv[0]);
@@ -58,7 +54,6 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-// --- LOGIN
 int login() {
     FILE *fp = fopen("akun.txt", "r");
     if (!fp) {
@@ -78,7 +73,6 @@ int login() {
     return 0;
 }
 
-// --- MENU ADMIN ---
 void menuAdmin() {
     int pilih;
     do {
@@ -100,7 +94,6 @@ void menuAdmin() {
     } while (pilih != 0);
 }
 
-// --- MENU USER ---
 void menuUser() {
     int pilih;
     do {
@@ -122,7 +115,6 @@ void menuUser() {
     } while (pilih != 0);
 }
 
-// --- LIHAT ALAT ---
 void lihatAlat() {
     FILE *fp = fopen("alat.txt", "r");
     if (!fp) {
@@ -133,14 +125,13 @@ void lihatAlat() {
     Alat a;
     printf("\nID | Nama | Merek | Model | Tahun | Jumlah\n");
     printf("-------------------------------------------\n");
-    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n", 
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
         printf("%u | %s | %s | %s | %u | %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
     }
     fclose(fp);
 }
 
-// --- TAMBAH ALAT ---
 void tambahAlat() {
     FILE *fp = fopen("alat.txt", "a");
     if (!fp) {
@@ -152,7 +143,7 @@ void tambahAlat() {
 
     printf("Masukkan ID Alat: ");
     scanf("%u", &a.id);
-    getchar();  // buang newline
+    getchar();
 
     printf("Nama: ");
     fgets(a.nama, sizeof(a.nama), stdin);
@@ -172,7 +163,6 @@ void tambahAlat() {
     printf("Jumlah Unit: ");
     scanf("%u", &a.jumlah);
 
-    // Format disamakan dengan fscanf
     fprintf(fp, "%u, %s, %s, %s, %u, %u\n",
             a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
 
@@ -180,8 +170,6 @@ void tambahAlat() {
     printf("Data alat berhasil ditambahkan!\n");
 }
 
-
-// --- EDIT ALAT ---
 void editAlat() {
     FILE *fp = fopen("alat.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
@@ -192,7 +180,7 @@ void editAlat() {
     printf("Masukkan ID alat yang ingin diedit: ");
     scanf("%u", &id);
 
-    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n", 
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
         if (a.id == id) {
             found = 1;
@@ -213,7 +201,6 @@ void editAlat() {
     else printf("ID alat tidak ditemukan!\n");
 }
 
-// --- HAPUS ALAT ---
 void hapusAlat() {
     FILE *fp = fopen("alat.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
@@ -239,7 +226,6 @@ void hapusAlat() {
     else printf("ID alat tidak ditemukan!\n");
 }
 
-// --- PINJAM ALAT ---
 void pinjamAlat() {
     unsigned int id, jumlah;
     FILE *fp = fopen("alat.txt", "r");
@@ -264,14 +250,16 @@ void pinjamAlat() {
         fprintf(temp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
     }
 
-    fclose(fp); fclose(temp); fclose(pinjam);
-    remove("alat.txt"); rename("temp.txt", "alat.txt");
+    fclose(fp);
+    fclose(temp);
+    fclose(pinjam);
+    remove("alat.txt");
+    rename("temp.txt", "alat.txt");
 
     if (found) printf("Peminjaman berhasil!\n");
     else printf("Alat tidak tersedia atau jumlah tidak cukup!\n");
 }
 
-// --- LIHAT PINJAMAN USER ---
 void lihatPinjaman() {
     FILE *fp = fopen("pinjam.txt", "r");
     if (!fp) {
@@ -295,7 +283,6 @@ void lihatPinjaman() {
     fclose(fp);
 }
 
-// --- KEMBALIKAN ALAT ---
 void kembalikanAlat() {
     FILE *pinjam = fopen("pinjam.txt", "r");
     FILE *tempPinjam = fopen("temp_pinjam.txt", "w");
@@ -315,10 +302,8 @@ void kembalikanAlat() {
     printf("Masukkan ID alat yang ingin dikembalikan: ");
     scanf("%u", &id);
 
-    // --- 1. Cari dulu berapa jumlah dipinjam user ---
     while (fscanf(pinjam, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlahPinjam) != EOF) {
-
         if (strcmp(uname, loginUser.username) == 0 && a.id == id) {
             found = 1;
             break;
@@ -350,33 +335,27 @@ void kembalikanAlat() {
     rewind(pinjam);
     rewind(alatFile);
 
-    // --- 2. Tambah stok pada alat ---
     while (fscanf(alatFile, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         &alat.id, alat.nama, alat.merek, alat.model, &alat.tahun, &alat.jumlah) != EOF) {
 
         if (alat.id == id) {
-            alat.jumlah += jumlahKembali;  // tambahkan stok
+            alat.jumlah += jumlahKembali;
         }
 
         fprintf(tempAlat, "%u, %s, %s, %s, %u, %u\n",
             alat.id, alat.nama, alat.merek, alat.model, alat.tahun, alat.jumlah);
     }
 
-    // --- 3. Perbarui file pinjam (kurangi atau hapus baris) ---
     while (fscanf(pinjam, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
         uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlahPinjam) != EOF) {
 
         if (strcmp(uname, loginUser.username) == 0 && a.id == id) {
             unsigned int sisa = jumlahPinjam - jumlahKembali;
-
             if (sisa > 0) {
-                // masih punya sisa pinjaman → simpan kembali
                 fprintf(tempPinjam, "%s, %u, %s, %s, %s, %u, %u\n",
                     uname, a.id, a.nama, a.merek, a.model, a.tahun, sisa);
             }
-            // jika sisa == 0 → baris ini tidak disimpan (artinya pinjaman selesai)
         } else {
-            // pinjaman lain tetap ditulis
             fprintf(tempPinjam, "%s, %u, %s, %s, %s, %u, %u\n",
                 uname, a.id, a.nama, a.merek, a.model, a.tahun, jumlahPinjam);
         }
