@@ -259,6 +259,26 @@ fclose(fp); fclose(temp); fclose(pinjam);
 void lihatPinjaman() {
     FILE *fp = fopen("pinjam.txt", "r");
     if (!fp) {
+        printf("Belum ada data peminjaman.\n");
+        return;
+    }
+
+    char uname[50];
+    Alat a;
+    unsigned int jumlah;
+
+    printf("\nAlat yang dipinjam oleh %s:\n", loginUser.username);
+    printf("---------------------------------------\n");
+
+    while (fscanf(fp, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlah) != EOF) {
+        if (strcmp(uname, loginUser.username) == 0) {
+            printf("%u | %s | %s | %s | %u | Jumlah: %u\n", a.id, a.nama, a.merek, a.model, a.tahun, jumlah);
+        }
+    }
+    fclose(fp);
+}
+
 
 
 
