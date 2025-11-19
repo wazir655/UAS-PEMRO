@@ -249,5 +249,11 @@ void pinjamAlat() {
         }
         fprintf(temp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
     }
+fclose(fp); fclose(temp); fclose(pinjam);
+    remove("alat.txt"); rename("temp.txt", "alat.txt");
+
+    if (found) printf("Peminjaman berhasil!\n");
+    else printf("Alat tidak tersedia atau jumlah tidak cukup!\n");
+}
 
 
