@@ -201,4 +201,53 @@ void editAlat() {
     else printf("ID alat tidak ditemukan!\n");
 }
 
+void hapusAlat() {
+    FILE *fp = fopen("alat.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+    Alat a;
+    unsigned int id;
+    int found = 0;
+
+    printf("Masukkan ID alat yang ingin dihapus: ");
+    scanf("%u", &id);
+
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
+        if (a.id != id)
+            fprintf(temp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+        else found = 1;
+    }
+    fclose(fp);
+    fclose(temp);
+    remove("alat.txt");
+    rename("temp.txt", "alat.txt");
+
+    if (found) printf("Data alat berhasil dihapus!\n");
+    else printf("ID alat tidak ditemukan!\n");
+}
+
+void pinjamAlat() {
+    unsigned int id, jumlah;
+    FILE *fp = fopen("alat.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+    FILE *pinjam = fopen("pinjam.txt", "a");
+    Alat a;
+    int found = 0;
+
+    printf("Masukkan ID alat yang ingin dipinjam: ");
+    scanf("%u", &id);
+    printf("Masukkan jumlah yang ingin dipinjam: ");
+    scanf("%u", &jumlah);
+
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
+        if (a.id == id && a.jumlah >= jumlah) {
+            found = 1;
+            a.jumlah -= jumlah;
+            fprintf(pinjam, "%s, %u, %s, %s, %s, %u, %u\n",
+                    loginUser.username, a.id, a.nama, a.merek, a.model, a.tahun, jumlah);
+        }
+        fprintf(temp, "%u, %s, %s, %s, %u, %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+    }
+
 
