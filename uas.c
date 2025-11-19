@@ -278,6 +278,55 @@ void lihatPinjaman() {
     }
     fclose(fp);
 }
+void kembalikanAlat() {
+    FILE *pinjam = fopen("pinjam.txt", "r");
+    FILE *tempPinjam = fopen("temp_pinjam.txt", "w");
+    FILE *alatFile = fopen("alat.txt", "r");
+    FILE *tempAlat = fopen("temp_alat.txt", "w");
+
+    if (!pinjam || !alatFile) {
+        printf("File pinjam.txt atau alat.txt tidak ditemukan!\n");
+        return;
+    }
+
+    Alat a, alat;
+    char uname[50];
+    unsigned int id, jumlahPinjam = 0, jumlahKembali = 0;
+    int found = 0;
+
+    printf("Masukkan ID alat yang ingin dikembalikan: ");
+    scanf("%u", &id);
+
+    while (fscanf(pinjam, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlahPinjam) != EOF) {
+        if (strcmp(uname, loginUser.username) == 0 && a.id == id) {
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Anda tidak meminjam alat dengan ID tersebut!\n");
+        fclose(pinjam);
+        fclose(alatFile);
+        fclose(tempPinjam);
+        fclose(tempAlat);
+        return;
+    }
+
+    printf("Anda meminjam %u unit.\n", jumlahPinjam);
+    printf("Berapa unit yang ingin dikembalikan? ");
+    scanf("%u", &jumlahKembali);
+
+    if (jumlahKembali > jumlahPinjam) {
+        printf("Jumlah pengembalian tidak boleh lebih besar dari yang dipinjam!\n");
+        fclose(pinjam);
+        fclose(alatFile);
+        fclose(tempPinjam);
+        fclose(tempAlat);
+        return;
+    }
+
 
 
 
