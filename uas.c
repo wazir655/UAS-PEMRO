@@ -93,3 +93,79 @@ void menuAdmin() {
         }
     } while (pilih != 0);
 }
+
+void menuUser() {
+    int pilih;
+    do {
+        printf("\n=== MENU USER ===\n");
+        printf("1. Lihat alat tersedia\n");
+        printf("2. Pinjam alat\n");
+        printf("3. Lihat alat yang dipinjam\n");
+        printf("4. Kembalikan alat\n");
+        printf("0. Keluar\n");
+        printf("Pilih: ");
+        scanf("%d", &pilih);
+
+        switch (pilih) {
+            case 1: lihatAlat(); break;
+            case 2: pinjamAlat(); break;
+            case 3: lihatPinjaman(); break;
+            case 4: kembalikanAlat(); break;
+        }
+    } while (pilih != 0);
+}
+
+void lihatAlat() {
+    FILE *fp = fopen("alat.txt", "r");
+    if (!fp) {
+        printf("File alat.txt tidak ditemukan!\n");
+        return;
+    }
+
+    Alat a;
+    printf("\nID | Nama | Merek | Model | Tahun | Jumlah\n");
+    printf("-------------------------------------------\n");
+    while (fscanf(fp, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        &a.id, a.nama, a.merek, a.model, &a.tahun, &a.jumlah) != EOF) {
+        printf("%u | %s | %s | %s | %u | %u\n", a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+    }
+    fclose(fp);
+}
+
+void tambahAlat() {
+    FILE *fp = fopen("alat.txt", "a");
+    if (!fp) {
+        printf("Gagal membuka file alat.txt!\n");
+        return;
+    }
+
+    Alat a;
+
+    printf("Masukkan ID Alat: ");
+    scanf("%u", &a.id);
+    getchar();
+
+    printf("Nama: ");
+    fgets(a.nama, sizeof(a.nama), stdin);
+    a.nama[strcspn(a.nama, "\n")] = 0;
+
+    printf("Merek: ");
+    fgets(a.merek, sizeof(a.merek), stdin);
+    a.merek[strcspn(a.merek, "\n")] = 0;
+
+    printf("Model: ");
+    fgets(a.model, sizeof(a.model), stdin);
+    a.model[strcspn(a.model, "\n")] = 0;
+
+    printf("Tahun Produksi: ");
+    scanf("%u", &a.tahun);
+
+    printf("Jumlah Unit: ");
+    scanf("%u", &a.jumlah);
+
+    fprintf(fp, "%u, %s, %s, %s, %u, %u\n",
+            a.id, a.nama, a.merek, a.model, a.tahun, a.jumlah);
+
+    fclose(fp);
+    printf("Data alat berhasil ditambahkan!\n");
+}
