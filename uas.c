@@ -256,4 +256,9 @@ fclose(fp); fclose(temp); fclose(pinjam);
     else printf("Alat tidak tersedia atau jumlah tidak cukup!\n");
 }
 
+void lihatPinjaman() {
+    FILE *fp = fopen("pinjam.txt", "r");
+    if (!fp) {
+
+
 
