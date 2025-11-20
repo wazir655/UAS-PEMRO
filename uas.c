@@ -330,9 +330,3 @@ void kembalikanAlat() {
         fclose(tempAlat);
         return;
     }
-
-
-
-
-
-
