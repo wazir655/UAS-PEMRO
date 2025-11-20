@@ -330,3 +330,46 @@ void kembalikanAlat() {
         fclose(tempAlat);
         return;
     }
+
+rewind(pinjam);
+    rewind(alatFile);
+
+    while (fscanf(alatFile, "%u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        &alat.id, alat.nama, alat.merek, alat.model, &alat.tahun, &alat.jumlah) != EOF) {
+
+        if (alat.id == id) {
+            alat.jumlah += jumlahKembali;
+        }
+
+        fprintf(tempAlat, "%u, %s, %s, %s, %u, %u\n",
+            alat.id, alat.nama, alat.merek, alat.model, alat.tahun, alat.jumlah);
+    }
+
+    while (fscanf(pinjam, "%[^,], %u, %49[^,], %49[^,], %49[^,], %u, %u\n",
+        uname, &a.id, a.nama, a.merek, a.model, &a.tahun, &jumlahPinjam) != EOF) {
+
+        if (strcmp(uname, loginUser.username) == 0 && a.id == id) {
+            unsigned int sisa = jumlahPinjam - jumlahKembali;
+            if (sisa > 0) {
+                fprintf(tempPinjam, "%s, %u, %s, %s, %s, %u, %u\n",
+                    uname, a.id, a.nama, a.merek, a.model, a.tahun, sisa);
+            }
+        } else {
+            fprintf(tempPinjam, "%s, %u, %s, %s, %s, %u, %u\n",
+                uname, a.id, a.nama, a.merek, a.model, a.tahun, jumlahPinjam);
+        }
+    }
+
+    fclose(pinjam);
+    fclose(alatFile);
+    fclose(tempPinjam);
+    fclose(tempAlat);
+
+    remove("pinjam.txt");
+    rename("temp_pinjam.txt", "pinjam.txt");
+
+    remove("alat.txt");
+    rename("temp_alat.txt", "alat.txt");
+
+    printf("Pengembalian berhasil! Sisa pinjaman Anda diperbarui.\n");
+}
