@@ -6,7 +6,7 @@
 #define MAX_WORDS 5000
 #define MAX_LEN 200
 
-// Mengecek apakah kata sudah ada di daftar
+
 int sudahAda(char daftar[][MAX_LEN], int jumlah, char *kata) {
     for (int i = 0; i < jumlah; i++) {
         if (strcmp(daftar[i], kata) == 0)
@@ -15,7 +15,6 @@ int sudahAda(char daftar[][MAX_LEN], int jumlah, char *kata) {
     return 0;
 }
 
-// Membersihkan kata dari tanda baca (kecuali apostrophe)
 void bersihkanKata(char *kata) {
     char temp[MAX_LEN];
     int idx = 0;
@@ -43,11 +42,11 @@ int main() {
     char daftarKata[MAX_WORDS][MAX_LEN];
     int jumlahKata = 0;
 
-    // ======== BACA JUDUL ========
+    
     fgets(baris, sizeof(baris), fpIn);
-    fprintf(fpOut, "%s", baris);  // tulis judul ulang ke output
+    fprintf(fpOut, "%s", baris);  
 
-    // ======== PROSES LIRIK ========
+    
     while (fgets(baris, sizeof(baris), fpIn)) {
         char *token = strtok(baris, " \n");
 
@@ -65,7 +64,7 @@ int main() {
         }
     }
 
-    // ======== TULIS OUTPUT ========
+    
     for (int i = 0; i < jumlahKata; i++) {
         fprintf(fpOut, "%s=\n", daftarKata[i]);
     }
@@ -76,3 +75,4 @@ int main() {
     printf("File kosa-kata.word berhasil dibuat!\n");
     return 0;
 }
+
