@@ -6,4 +6,4 @@ Rahadatul Qudsi (250810701100026)
 Zahra Agmelia (250810701100033)
 Tagaev Asliddin (250810701100117)
 Aisya Ghaisani (25081070110009)
-Hally Lubaba (250810701100
+Hally Lubaba (250810701100110)
