@@ -1,2 +1,9 @@
 # UAS-PEMRO
 Ahmad Wazir Sahfikri (250810701100050)
+Dhawy Azzhafran (250810701100043)
+T.Haikal Saputra (250810701100112)
+Rahadatul Qudsi (250810701100026)
+Zahra Agmelia (250810701100033)
+Tagaev Asliddin (250810701100117)
+Aisya Ghaisani (25081070110009)
+Hally Lubaba (250810701100
