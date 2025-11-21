@@ -1,78 +1,78 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
-int login(){
-    FILE *fp = fopen("lirik.txt", "r");
-    if (!fp){
-        printf("File lirik tidak ditemukan\n");
-        return 0;
+#define MAX_WORDS 5000
+#define MAX_LEN 200
+
+// Mengecek apakah kata sudah ada di daftar
+int sudahAda(char daftar[][MAX_LEN], int jumlah, char *kata) {
+    for (int i = 0; i < jumlah; i++) {
+        if (strcmp(daftar[i], kata) == 0)
+            return 1;
     }
-
-    char *buffer = NULL;
-    long size = 0;
-    int ch;
-
-    while((ch = fgetc(fp)) != EOF){
-        buffer = realloc(buffer, size + 2);
-        buffer[size] = ch;
-        size++;
-    }
-    buffer[size] = '\0';
-    fclose(fp);
-
-    char **list = NULL;
-    int count = 0;
-
-    char *kata = strtok(buffer, " \n,");
-    while(kata != NULL){
-        list = realloc(list, (count + 1) * sizeof(char *));
-        list[count] = kata;
-        count++;
-        kata = strtok(NULL, " \n,");
-    }
-
-    FILE *out = fopen("kosakata.txt", "a");
-    if (!out){
-        free(buffer);
-        free(list);
-        return 0;
-    }
-
-    char **sudah = NULL;
-    int jumlahSudah = 0;
-
-    for(int i = 0; i < count; i++){
-        for(int j = i + 1; j < count; j++){
-            if(strcmp(list[i], list[j]) == 0){
-                int pernah = 0;
-                for(int k = 0; k < jumlahSudah; k++){
-                    if(strcmp(sudah[k], list[i]) == 0){
-                        pernah = 1;
-                        break;
-                    }
-                }
-                if(!pernah){
-                    fprintf(out, "%s=\n", list[i]);
-                    sudah = realloc(sudah, (jumlahSudah + 1) * sizeof(char *));
-                    sudah[jumlahSudah] = list[i];
-                    jumlahSudah++;
-                }
-                break;
-            }
-        }
-    }
-
-    free(sudah);
-    free(buffer);
-    free(list);
-    fclose(out);
-
-    printf("Telah disalin ke kosakata tanpa duplikat\n");
     return 0;
 }
 
-int main(){
-    login();
+// Membersihkan kata dari tanda baca (kecuali apostrophe)
+void bersihkanKata(char *kata) {
+    char temp[MAX_LEN];
+    int idx = 0;
+
+    for (int i = 0; kata[i] != '\0'; i++) {
+        if (isalnum(kata[i]) || kata[i] == '\'') {
+            temp[idx++] = tolower(kata[i]);
+        }
+    }
+
+    temp[idx] = '\0';
+    strcpy(kata, temp);
+}
+
+int main() {
+    FILE *fpIn = fopen("lirik.txt", "r");
+    FILE *fpOut = fopen("kosa-kata.word", "w");
+
+    if (!fpIn || !fpOut) {
+        printf("Gagal membuka file!\n");
+        return 1;
+    }
+
+    char baris[MAX_LEN];
+    char daftarKata[MAX_WORDS][MAX_LEN];
+    int jumlahKata = 0;
+
+    // ======== BACA JUDUL ========
+    fgets(baris, sizeof(baris), fpIn);
+    fprintf(fpOut, "%s", baris);  // tulis judul ulang ke output
+
+    // ======== PROSES LIRIK ========
+    while (fgets(baris, sizeof(baris), fpIn)) {
+        char *token = strtok(baris, " \n");
+
+        while (token != NULL) {
+            char kata[MAX_LEN];
+            strcpy(kata, token);
+
+            bersihkanKata(kata);
+
+            if (strlen(kata) > 0 && !sudahAda(daftarKata, jumlahKata, kata)) {
+                strcpy(daftarKata[jumlahKata++], kata);
+            }
+
+            token = strtok(NULL, " \n");
+        }
+    }
+
+    // ======== TULIS OUTPUT ========
+    for (int i = 0; i < jumlahKata; i++) {
+        fprintf(fpOut, "%s=\n", daftarKata[i]);
+    }
+
+    fclose(fpIn);
+    fclose(fpOut);
+
+    printf("File kosa-kata.word berhasil dibuat!\n");
     return 0;
 }
