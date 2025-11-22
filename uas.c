@@ -75,6 +75,8 @@ int login() {
 
 void menuAdmin() {
     int pilih;
+    char buffer[20];
+
     do {
         printf("\n=== MENU ADMIN ===\n");
         printf("1. Lihat daftar alat\n");
@@ -83,19 +85,47 @@ void menuAdmin() {
         printf("4. Hapus alat\n");
         printf("0. Keluar\n");
         printf("Pilih: ");
-        scanf("%d", &pilih);
+
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            printf("\nTerjadi kesalahan input\n");
+            pilih = -1;
+            continue;
+        }
+
+        if (sscanf(buffer, "%d", &pilih) != 1) {
+            printf("\nInput harus berupa ANGKA!\n");
+            pilih = -1;
+            continue;
+        }
 
         switch (pilih) {
-            case 1: lihatAlat(); break;
-            case 2: tambahAlat(); break;
-            case 3: editAlat(); break;
-            case 4: hapusAlat(); break;
+            case 1:
+                lihatAlat();
+                break;
+            case 2:
+                tambahAlat();
+                break;
+            case 3:
+                editAlat();
+                break;
+            case 4:
+                hapusAlat();
+                break;
+            case 0:
+                printf("\nKeluar dari menu admin...\n");
+                break;
+            default:
+                printf("\nPilihan tidak tersedia!\n");
         }
+
     } while (pilih != 0);
 }
 
+
 void menuUser() {
     int pilih;
+    char buffer[20];
+
     do {
         printf("\n=== MENU USER ===\n");
         printf("1. Lihat alat tersedia\n");
@@ -104,16 +134,42 @@ void menuUser() {
         printf("4. Kembalikan alat\n");
         printf("0. Keluar\n");
         printf("Pilih: ");
-        scanf("%d", &pilih);
+
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            printf("\nTerjadi kesalahan input!\n");
+            pilih = -1;
+            continue;
+        }
+
+        if (sscanf(buffer, "%d", &pilih) != 1) {
+            printf("\nInput harus berupa ANGKA!\n");
+            pilih = -1;
+            continue;
+        }
 
         switch (pilih) {
-            case 1: lihatAlat(); break;
-            case 2: pinjamAlat(); break;
-            case 3: lihatPinjaman(); break;
-            case 4: kembalikanAlat(); break;
+            case 1:
+                lihatAlat();
+                break;
+            case 2:
+                pinjamAlat();
+                break;
+            case 3:
+                lihatPinjaman();
+                break;
+            case 4:
+                kembalikanAlat();
+                break;
+            case 0:
+                printf("\nKeluar dari menu user...\n");
+                break;
+            default:
+                printf("\nPilihan tidak tersedia!\n");
         }
+
     } while (pilih != 0);
 }
+
 
 void lihatAlat() {
     FILE *fp = fopen("alat.txt", "r");
